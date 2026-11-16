@@ -1,0 +1,6 @@
+build/
+wargame.jar
+doc/
+sauvegardes/
+*.class
+.DS_Store

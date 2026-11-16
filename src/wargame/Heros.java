@@ -16,6 +16,7 @@ import wargame.ISoldat.TypesH;
  */
 
 public class Heros extends Soldat implements Serializable {
+    private static final long serialVersionUID = 2L;
     private final String NOM;
     private final TypesH TYPE;
     
@@ -42,27 +43,23 @@ public class Heros extends Soldat implements Serializable {
         return TYPE;
     }
     
-    // NOUVELLE MÉTHODE : obtenir la puissance de tir
-    public int getTir() {
-        return TYPE.getTir();
-    }
-    
     @Override
-    public String toString() {
-        return "Héros " + NOM + " (" + TYPE + ") PV: " + pointsDeVie + "/" + POINTS_DE_VIE_MAX;
+    public String identifiant() {
+        return NOM;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (!super.equals(obj)) return false;  // Vérifie d'abord l'égalité de Soldat
-        if (getClass() != obj.getClass()) return false;
-        
-        Heros other = (Heros) obj;
-        return this.NOM.equals(other.NOM) && this.TYPE == other.TYPE;
+    public String getNomType() {
+        switch (TYPE) {
+            case HUMAIN: return "Humain";
+            case NAIN: return "Nain";
+            case ELF: return "Elfe";
+            default: return "Hobbit";
+        }
     }
-    
+
     @Override
-    public int hashCode() {
-        return super.hashCode() + 31 * NOM.hashCode() + TYPE.hashCode();
+    public String toString() {
+        return getNomType() + " " + NOM + " (" + pointsDeVie + "/" + POINTS_DE_VIE_MAX + " PV)";
     }
 }

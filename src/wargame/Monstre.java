@@ -3,7 +3,7 @@ import java.io.Serializable;
 import wargame.ISoldat.TypesM;
 
 /**
- * Représente un monstre contrôlé par l'IA.
+ * Représente un monstre contrôlé par l'ordinateur.
  * Les monstres agissent automatiquement en fin de tour de jeu.
  * 
  * <p>Types disponibles définis dans {@link ISoldat.TypesM} :</p>
@@ -14,6 +14,7 @@ import wargame.ISoldat.TypesM;
  * </ul>
  */
 public class Monstre extends Soldat implements Serializable {
+    private static final long serialVersionUID = 2L;
     private final TypesM TYPE;
     private final int NUMERO;
     
@@ -39,27 +40,22 @@ public class Monstre extends Soldat implements Serializable {
         return NUMERO;
     }
     
-    // NOUVELLE MÉTHODE : obtenir la puissance de tir
-    public int getTir() {
-        return TYPE.getTir();
-    }
-    
     @Override
-    public String toString() {
-        return "Monstre " + NUMERO + " (" + TYPE + ") PV: " + pointsDeVie + "/" + POINTS_DE_VIE_MAX;
+    public String identifiant() {
+        return String.valueOf(NUMERO);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (!super.equals(obj)) return false;
-        if (getClass() != obj.getClass()) return false;
-        
-        Monstre other = (Monstre) obj;
-        return this.NUMERO == other.NUMERO && this.TYPE == other.TYPE;
+    public String getNomType() {
+        switch (TYPE) {
+            case TROLL: return "Troll";
+            case ORC: return "Orc";
+            default: return "Gobelin";
+        }
     }
-    
+
     @Override
-    public int hashCode() {
-        return super.hashCode() + 31 * NUMERO + TYPE.hashCode();
+    public String toString() {
+        return getNomType() + " " + NUMERO + " (" + pointsDeVie + "/" + POINTS_DE_VIE_MAX + " PV)";
     }
 }
